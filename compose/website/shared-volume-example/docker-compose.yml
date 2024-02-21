@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  writer:
+    image: busybox
+    volumes:
+      - shared-data:/data
+    command: echo "Hello, world!" > /data/file.txt
+
+  reader:
+    image: busybox
+    volumes:
+      - shared-data:/data
+    entrypoint: sh -c "sleep 5 && cat /data/file.txt"
+
+volumes:
+  shared-data:
+    driver: local
+

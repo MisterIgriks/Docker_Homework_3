@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    ports:
+      - "8080:80"
+
+    volumes:
+      - /home/admin_ko/compose/website:/usr/share/nginx/html
+
+  registry:
+    image: registry:2
+    ports:
+      - "5000:5000"
+    volumes:
+    - type: volume
+      source: registry_data
+      target: /var/lib/registry
+
+volumes:
+  registry_data:
+    driver: local
+
+
